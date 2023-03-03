@@ -16,22 +16,22 @@ theme.tasklist_disable_icon = true
 
 theme.font          = "sans 8"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
+theme.bg_normal     = "#190506"
+theme.bg_focus      = "#f2c828"
+theme.bg_urgent     = "#00fefb"
+theme.bg_minimize   = "#190506"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_normal     = "#f2c828"
+theme.fg_focus      = "#000000"
+theme.fg_urgent     = "#000000"
+theme.fg_minimize   = "#f2c828"
 
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(1)
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c"
-theme.border_marked = "#91231c"
+theme.border_normal = "#190506"
+theme.border_focus  = "#f2c828"
+theme.border_marked = "#f2c828"
 
 -- There are other variable sets
 -- overriding the default one when

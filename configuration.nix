@@ -56,6 +56,12 @@
   services.xserver.layout = "de";
   console.useXkbConfig = true;  
 
+  services.xserver.libinput = {
+    enable = true;
+    touchpad.naturalScrolling = true; 
+    touchpad.tapping = true;
+  };
+
   # services.xserver.xkbOptions = {
   #   "eurosign:e";
   #   "caps:escape" # map caps to escape.
@@ -66,13 +72,29 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    #package = pkgs.pulseaudioFull;
+    #configFile = pkgs.writeText "default.pa" ''
+    #  load-module module-bluetooth-policy
+    #  load-module module-bluetooth-discover
+      ## module fails to load with 
+      ##   module-bluez5-device.c: Failed to get device path from module arguments
+      ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
+      # load-module module-bluez5-device
+      # load-module module-bluez5-discover
+    #'';
+  };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
 
   #allow unfree software
   nixpkgs.config.allowUnfree = true;
+
+  #services.xserver.videoDrivers = [ "nvidia" ];
+  #hardware.opengl.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.vito = {
@@ -86,6 +108,11 @@
        breeze-qt5
        breeze-icons
        rofi
+       libsForQt5.kmix
+       networkmanagerapplet
+       #xorg.xrdb
+       #dex
+
        #ADVANCED
        vscode
        sublime4
@@ -102,6 +129,8 @@
     # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     # wget
     git
+    gh
+    neofetch
    ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -163,6 +192,7 @@
     # xdg.configFile.".config/.keep".source = builtins.toFile "keep" "";
     xdg.configFile."awesome/".source = ./config/awesome;
     xdg.configFile."rofi/".source = ./config/rofi;
+    xdg.configFile."alacritty/".source = ./config/alacritty;
     home.file.".xinitrc".source = ./xinitrc;
   };
 

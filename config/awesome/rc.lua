@@ -201,8 +201,8 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Battery Widget
-    --local battery_widget = require("battery-widget")
-    --local BAT = battery_widget { adapter = "BAT1", ac = "AC" }
+    local battery_widget = require("battery-widget")
+    local BAT = battery_widget { adapter = "BAT1", ac = "ADP1" }
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -223,7 +223,7 @@ awful.screen.connect_for_each_screen(function(s)
             wibox.widget.systray(),
             mytextclock,
             --s.mylayoutbox,
-	    --BAT,
+	    BAT,
         },
     }
 end)
@@ -596,3 +596,14 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- awful.spawn.with_shell("bash /home/vito/.config/awesome/autostart.sh")
+awful.spawn.with_shell("kmix")
+awful.spawn.with_shell("blueman-applet")
+
+--awful.spawn.with_shell(
+--    'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
+--    'xrdb -merge <<< "awesome.started:true";' ..
+--    'kmix ;' ..
+--    'blueman-applet ;' ..
+--    -- list each of your autostart commands, followed by ; inside single quotes, followed by ..
+--    'dex --environment Awesome --autostart'
+--    )
