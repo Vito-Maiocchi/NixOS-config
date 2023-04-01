@@ -11,7 +11,7 @@
       <home-manager/nixos> #mer muss selber de home-manager channel adde
     ];
 
-	# sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
+	# sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
         # sudo nix-channel --update
 
   # Use the GRUB 2 boot loader.
@@ -46,11 +46,13 @@
   # };
 
   # Enable the X11 windowing system.
-   services.xserver.enable = true;
+  services.xserver.enable = true;
 
   # X Server ohni displaymanager -> nur startx
   services.xserver.displayManager.startx.enable = true;
   services.xserver.windowManager.awesome.enable = true;
+
+  services.xserver.wacom.enable = true;
 
   # Configure keymap in X11
   services.xserver.layout = "de";
@@ -93,8 +95,20 @@
   #allow unfree software
   nixpkgs.config.allowUnfree = true;
 
-  #services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.opengl.enable = true;
+  #hardware.nvidia.modesetting.enable = true;
+  services.xserver.videoDrivers = [ "intel" "nvidia" ];
+  hardware.opengl.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  #hardware.nvidia.modesetting.enable = true;
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "vito" ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.vito = {
@@ -120,6 +134,8 @@
        _1password-gui
        spotify
        okular
+       mpv
+       pcloud
      ];
    };
 
